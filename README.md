@@ -55,4 +55,4 @@ cond(no)->sub1(right)->op
 $$
 \int_{-N}^{N} e^x\, dx
 $$  
-$\color{red}\text{我不知道}$
+<span style="color:red;">这是比font标签更好的方式。可以试试。</span>
