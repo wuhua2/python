@@ -55,5 +55,4 @@ cond(no)->sub1(right)->op
 $$
 \int_{-N}^{N} e^x\, dx
 $$  
-<font color="#008000">我是绿色</font>
-
+$\color{red}\text{我不知道}$
