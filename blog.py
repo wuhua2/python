@@ -45,6 +45,8 @@ class DataDeal():
     def deal(self,fisrt_url,npath,**xpath):
         #添加首页
         self.urlList.append(fisrt_url)
+        #用于防止重复爬取尾页
+        temp_next_page="next"
         while len(self.urlList)>0:
             html=self.crawl.crawlUrl(self.urlList.pop())
             dataList=self.crawlDeal.toModel(html,**xpath)
@@ -54,18 +56,21 @@ class DataDeal():
             next_page=html.xpath(npath)
             if len(next_page)>0:
                 next_page=urljoin(fisrt_url,next_page.pop())
-                self.urlList.append(next_page)
-                print("下一页：%s"%next_page)
+                if temp_next_page!=next_page:
+                    self.urlList.append(next_page)
+                    temp_next_page=next_page
+                    print(temp_next_page)
+                    print("下一页：%s"%next_page)
     def saveData(self,*dataList):
         for data in dataList:
             print("--------------------------------------------")
             print(data)
-            time.sleep(1)
+        time.sleep(2)
 if __name__=="__main__":
     dataDeal=DataDeal()
     npath="//*[@id='paging_block']/div/a[last()]/@href"
     xpath={"title":"//div[@class='post_item_body']/h3/a/text()",
            "url":"//div[@class='post_item_body']/h3/a/@href"
            }
-    fisrt_url="https://www.cnblogs.com"
+    fisrt_url="https://www.cnblogs.com/sitehome/p/198"
     dataDeal.deal(fisrt_url,npath,**xpath)
