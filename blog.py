@@ -35,6 +35,7 @@ class CrawlDeal():
             modelList.insert(0,obj)
         return modelList
 import time
+from urllib.parse import urljoin
 #数据存储等继承类
 class DataDeal():
     def __init__(self):
@@ -52,7 +53,7 @@ class DataDeal():
             #得到下一页
             next_page=html.xpath(npath)
             if len(next_page)>0:
-                next_page=fisrt_url+next_page.pop()
+                next_page=urljoin(fisrt_url,next_page.pop())
                 self.urlList.append(next_page)
                 print("下一页：%s"%next_page)
     def saveData(self,*dataList):
